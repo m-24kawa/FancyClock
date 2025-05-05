@@ -1,4 +1,4 @@
-/* DIGITAL & ANALOG CLOCK revision 2.1                */
+/* DIGITAL & ANALOG CLOCK revision 3.0                */
 /* Pseudo-Liquid Cristal Display                      */
 /*        Designed by Masahiro Nishikawa              */
 /*        Credit : Dotinstall.com                     */

@@ -1,5 +1,28 @@
 'use strict';
 {
+  const urlParams = new URLSearchParams(window.location.search);
+  let cvBackGround = urlParams.get('back');
+  let cvForeGround = urlParams.get('fore');
+  if (cvBackGround==null || cvForeGround==null){
+    cvBackGround = '#333';  // 背景色
+    cvForeGround = '#6cb';  // 文字色
+  }
+  function InitScreen(){
+    // 画面背景初期化
+    const canvas = document.querySelector('canvas');
+    if (typeof canvas.getContext === 'undefined') {
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(canvas.width,0);
+    ctx.lineTo(canvas.width,canvas.height);
+    ctx.lineTo(0,canvas.height);
+    ctx.lineTo.closePath;
+    ctx.fillStyle = cvBackGround;
+    ctx.fill();
+  }
   function putStr2(tgtStr,ix,iy) {
     const canvas = document.querySelector('canvas');
     if (typeof canvas.getContext === 'undefined') {
@@ -10,11 +33,11 @@
     // 文字列削除処理（一括）
     ctx.beginPath();
     ctx.moveTo(ix,iy);
-    ctx.lineTo(ix+(tgtStr.length)*70, iy);
-    ctx.lineTo(ix+(tgtStr.length)*70-19, iy+113);
+    ctx.lineTo(ix+(tgtStr.length)*71, iy);
+    ctx.lineTo(ix+(tgtStr.length)*71-19, iy+113);
     ctx.lineTo(ix-19, iy+113);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#aaa';
+    ctx.fillStyle = cvBackGround;
     ctx.fill();
 
     // 文字列描画処理
@@ -42,7 +65,7 @@
     ctx.lineTo(x+37,y+33);
     ctx.lineTo(x+22,y+33);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
     ctx.beginPath();
     ctx.moveTo(x+10,y+98);
@@ -50,7 +73,7 @@
     ctx.lineTo(x+28,y+80);
     ctx.lineTo(x+25,y+98);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }
   // マイナスの描画
@@ -63,7 +86,7 @@
     ctx.lineTo(x+40,y+64);
     ctx.lineTo(x+5,y+64);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }
 
@@ -76,8 +99,8 @@
   
   function drawNum(ctx, bitInfo,ix,iy){
     var BitChk = [0x00, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01];
-    var SegOffsetX = [null, 10, 8, 62, 0, -2, 52, -10];
-    var SegOffsetY = [null, 10, 12, 7, 59, 61, 56, 108];
+    var SegOffsetX = [null, 10, 8, 62, 5, 3, 57, 0];
+    var SegOffsetY = [null, 5, 7, 12, 54, 56, 61, 103];
     // for(let i=0; i<8; i++){
     //   console.log(' Segment',bitInfo,i,(bitInfo & BitChk[i])!=0 );
     // }
@@ -110,29 +133,28 @@
       drawHSeg(ctx,ix+SegOffsetX[7],iy+SegOffsetY[7]);
     }
   }
-
   function drawHSeg(ctx, ix ,iy ){
     ctx.beginPath();
     ctx.moveTo(ix,iy);
-    ctx.lineTo(ix+10,iy-10);
-    ctx.lineTo(ix+45,iy-10);
-    ctx.lineTo(ix+50,iy-5);
-    ctx.lineTo(ix+40,iy+5);
-    ctx.lineTo(ix+5,iy+5);
+    ctx.lineTo(ix+5,iy-5);
+    ctx.lineTo(ix+42,iy-5);
+    ctx.lineTo(ix+52,iy+3);
+    ctx.lineTo(ix+45,iy+10);
+    ctx.lineTo(ix+10,iy+10);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }
   function drawVSeg(ctx, ix ,iy ){
     ctx.beginPath();
     ctx.moveTo(ix,iy);
-    ctx.lineTo(ix+5,iy+5);
-    ctx.lineTo(ix,iy+35);
-    ctx.lineTo(ix-10,iy+45);
-    ctx.lineTo(ix-15,iy+40);
-    ctx.lineTo(ix-10,iy+10);
+    ctx.lineTo(ix+8,iy+8);
+    ctx.lineTo(ix+3,iy+38);
+    ctx.lineTo(ix-2,iy+43);
+    ctx.lineTo(ix-10,iy+35);
+    ctx.lineTo(ix-5,iy+5);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }
 
@@ -144,13 +166,13 @@
     const ctx = canvas.getContext('2d');
     // 目盛りの描画
     for ( let icnt=0 ; icnt< 360 ; icnt += 6){
-      drawLine ( ctx, allocX( ix , r+25 ,icnt), allocY(iy, r+25,icnt), allocX( ix , r+20 ,icnt), allocY(iy, r+20,icnt));    
+      drawLine ( ctx, allocX( ix , r+17 ,icnt), allocY(iy, r+17,icnt), allocX( ix , r+13 ,icnt), allocY(iy, r+13,icnt));    
     }
     for ( let icnt=0 ; icnt< 360 ; icnt += 30){
       drawCircle ( ctx, allocX( ix , r+15 ,icnt), allocY(iy, r+15,icnt), 5);    
     }
     for ( let icnt=0 ; icnt< 360 ; icnt += 90){
-      drawQuad ( ctx, allocX( ix+8 , r+15 ,icnt), allocY(iy+8, r+15,icnt), allocX( ix+8 , r+15 ,icnt), allocY(iy-8, r+15,icnt), allocX( ix-8 , r+15 ,icnt), allocY(iy-8, r+15,icnt), allocX( ix-8 , r+15 ,icnt), allocY(iy+8, r+15,icnt));    
+      drawQuad ( ctx, allocX( ix+8 , r+12 ,icnt), allocY(iy+8, r+12,icnt), allocX( ix+8 , r+12 ,icnt), allocY(iy-8, r+12,icnt), allocX( ix-8 , r+12 ,icnt), allocY(iy-8, r+12,icnt), allocX( ix-8 , r+12 ,icnt), allocY(iy+8, r+12,icnt));    
     }
     // drawQuad ( ctx, allocX( ix+8 , r+12 ,270), allocY(iy+8, r+12,270), allocX( ix+8 , r+12 ,270), allocY(iy-8, r+12,270), allocX( ix-8 , r+12 ,270), allocY(iy-8, r+12,270), allocX( ix-8 , r+12 ,270), allocY(iy+8, r+12,270));    
   } // end of function putAnalogClock  
@@ -181,7 +203,7 @@
     ctx.beginPath();
     ctx.arc(ix, iy, r, 0, 2*Math.PI);
     ctx.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }  
   // 四辺形の描画
@@ -192,7 +214,7 @@
     ctx.lineTo(x3, y3);
     ctx.lineTo(x4, y4);
     ctx.lineTo.closePath;
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = cvForeGround;
     ctx.fill();
   }  
   // 線の描画
@@ -200,7 +222,7 @@
     ctx.beginPath();
     ctx.moveTo(ix, iy);
     ctx.lineTo(x1, y1);
-    ctx.strokestyle = '#000000';
+    ctx.strokeStyle = cvForeGround;
     ctx.stroke();
   }
     // 針削除処理（一括）
@@ -209,7 +231,7 @@
     ctx.moveTo(ix,iy);
     ctx.arc(ix, iy, r, 0, 2*Math.PI);
     ctx.closePath;
-    ctx.fillStyle = '#aaa';
+    ctx.fillStyle = cvBackGround;
     ctx.fill();
 
   }
@@ -258,9 +280,9 @@
     drawLine ( ctx, ix+rotateX( -20,0,SecondHand), iy+rotateY(-20,0,SecondHand), ix+rotateX(+98,0,SecondHand), iy+rotateY(+98,0,SecondHand));   
     console.log('SecX',ix+rotateX(-10,0,SecondHand));
     console.log('SecY',iy+rotateY(+98,0,SecondHand));
-
   }
 
+  InitScreen(); // 背景初期化
   let pre_msec = 0;
   let blink_On = 0;
   putAlalogClock(300,200,100);
