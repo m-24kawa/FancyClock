@@ -1,9 +1,11 @@
 'use strict';
 {
-  const urlParams = new URLSearchParams(window.location.search);
-  let cvBackGround = urlParams.get('back');
-  let cvForeGround = urlParams.get('fore');
-  if (cvBackGround==null || cvForeGround==null){
+  let url_string = window.location.href;
+  let url_obj = new URL(url_string);
+ 
+  let cvBackGround = url_obj.searchParams.get('back');
+  let cvForeGround = url_obj.searchParams.get('fore');
+  if (cvBackGround===null || cvForeGround===null){
     cvBackGround = '#333';  // 背景色
     cvForeGround = '#6cb';  // 文字色
   }
