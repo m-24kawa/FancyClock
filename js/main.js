@@ -1,13 +1,13 @@
 'use strict';
 {
-  let url_string = window.location.href;
+  let url_string = window.location.search;
   let url_obj = new URL(url_string);
  
   let cvBackGround = url_obj.searchParams.get("back");
   let cvForeGround = url_obj.searchParams.get("fore");
   if (cvBackGround===null || cvForeGround===null){
     cvBackGround = '#333';  // 背景色
-    cvForeGround = '#6cb';  // 文字色
+    cvForeGround = '#cc6';  // 文字色
   }
   function InitScreen(){
     // 画面背景初期化
