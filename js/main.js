@@ -1,13 +1,14 @@
 'use strict';
 {
-  let url_string = window.location.href;
-  let url_obj = new URL(url_string);
- 
-  let cvBackGround = '#' + url_obj.searchParams.get("back").toString(16);
-  let cvForeGround = '#' + url_obj.searchParams.get("fore").toString(16);
-  if (cvBackGround===null || cvForeGround===null){
+  const url_string = window.location.href;
+  const url_obj = new URL(url_string);
+  const params = url_obj.searchParams;
+  
+  let cvBackGround = '#' + params.get("back");
+  let cvForeGround = '#' + params.get("fore");
+  if (cvBackGround==='#null' || cvForeGround==='#null'){
     cvBackGround = '#333';  // 背景色
-    cvForeGround = '#6cb';  // 文字色
+    cvForeGround = '#cc6';  // 文字色
   }
   function InitScreen(){
     // 画面背景初期化
