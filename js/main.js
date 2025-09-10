@@ -8,7 +8,7 @@
   let cvForeGround = '#' + params.get("fore");
   if (cvBackGround==='#null' || cvForeGround==='#null'){
     cvBackGround = '#333';  // 背景色
-    cvForeGround = '#cc6';  // 文字色
+    cvForeGround = '#6ec';  // 文字色
   }
   function InitScreen(){
     // 画面背景初期化
